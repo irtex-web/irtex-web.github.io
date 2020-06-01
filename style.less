@@ -3,6 +3,7 @@
 @white: #fff;
 @blue: #167dff;
 @gray: #E5E9EF;
+@green: #9BCC6A;
 @spacegray: #efefef;
 @fontSize: 1em;
 @transparent: transparent;
@@ -60,6 +61,7 @@ ul.menu {
 }
 
 input[type=text].search__input {
+
   color: @black;
   background: @white;
   border: 1px solid @spacegray;
@@ -71,18 +73,25 @@ input[type=text].search__input {
   font-weight: initial;
   font-size: @fontSize;
   width: 40%;
+  transition: .1s;
+
+  &:active, &:focus {
+    background-color: #EEEEEE;
+    border: 1px solid @gray;
+  }
+
 }
 
 div[role="menu"] {
   position: sticky;
-  top: 0;
+  top: 24px;
 }
 
 main {
   margin: 32px 0 0 0;
 }
 
-.navbar-white {
+nav.navbar-white {
 
   border: 0px solid transparent;
   border-radius: 0px;
@@ -90,14 +99,16 @@ main {
   min-height: 0px;
 
   background: rgb(252,252,252);
-  background: -moz-linear-gradient(0deg, rgba(252,252,252,1) 0%, rgba(255,255,255,1) 100%);
-  background: -webkit-linear-gradient(0deg, rgba(252,252,252,1) 0%, rgba(255,255,255,1) 100%);
-  background: linear-gradient(0deg, rgba(252,252,252,1) 0%, rgba(255,255,255,1) 100%);
+  background: -moz-linear-gradient(0deg, rgba(252,252,252,0.9) 0%, rgba(255,255,255,0.9) 100%);
+  background: -webkit-linear-gradient(0deg, rgba(252,252,252,0.9) 0%, rgba(255,255,255,0.9) 100%);
+  background: linear-gradient(0deg, rgba(252,252,252,0.9) 0%, rgba(255,255,255,0.9) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f9f9f9",endColorstr="#ffffff",GradientType=1);
+
+  backdrop-filter: blur(8px);
 
 }
 
-.navbar-white > div > div > ul > li > a {
+nav.navbar-white > div > div > ul > li > a {
 
   color: @black;
   padding: 8px 0;
@@ -112,8 +123,18 @@ main {
 
 }
 
-.navbar-white > div > div > ul > li {
+nav.navbar-white > div > div > ul > li {
   background: @transparent;
+}
+
+div.card {
+  border-right: 1px solid rgba(51,51,51,0.14);
+  margin: 24px 0;
+  text-align: center;
+}
+
+div.card:last-child {
+  border-right: none;
 }
 
 .text-gray-soft {

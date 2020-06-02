@@ -161,6 +161,22 @@ $(function() {
                     {
                         content: "Element types table",
                         url: "#element_types_table"
+                    },
+                    {
+                        content: "Get single image/video",
+                        url: "#get_single_src"
+                    },
+                    {
+                        content: "Register your own option types",
+                        url: "#Register your own option types"
+                    },
+                    {
+                        content: "Available option data types",
+                        url: "#available_option_data_types"
+                    },
+                    {
+                        content: "Default options",
+                        url: "#default_options"
                     }
                 ]
 
@@ -454,6 +470,11 @@ $(function() {
                                 type: 'number'
                             },
                             {
+                                option: 'src',
+                                desc: 'You will get a ID of media element in WP lib.',
+                                type: 'media select form'
+                            },
+                            {
                                 option: 'html',
                                 desc: 'The user can send you not only formatted text, but also a picture or table',
                                 type: 'html'
@@ -515,10 +536,124 @@ $(function() {
                                 ],
                                 ret: 'string'
                             }
+                        ]),
+                        "<span id='get_single_src'></span>If you need to get a link to the media element passed as an SRC parameter (you get exactly the ID for the element (list of elements with separators |), and not a link to it), you should pass the result of the rre function to the rosemary_get_single_image function.",
+                        "The result of this function will be a link to the image / video",
+                        "<!--?prettify lang=php linenums=true?-->\n<pre class='prettyprint'><code class=\"lang-php\">" +
+                        "rosemary_register('template_id', function ($event=null) {\n" +
+                        "\n" +
+                        "    $url = rosemary_get_single_image(rre('img', [\n" +
+                        "        'type' => 'src',\n" +
+                        "        'value' => ''\n" +
+                        "    ]));" +
+                        "\n\n" +
+                        "}, array(\n" +
+                        "    'title' => 'Title block',\n" +
+                        "    'description' => 'Description',\n" +
+                        "    'author' => 'You Package'\n" +
+                        "));" +
+                        "</code></pre>",
+                        r_function([
+                            {
+                                func: 'rosemary_get_single_image',
+                                desc: 'The function gets the full ID for the element. This ID must be passed to functions that require a full element ID',
+                                params: [
+                                    'image:string - data returned by rre()'
+                                ],
+                                ret: 'string'
+                            }
                         ])
                     ]
                 },
-
+                {
+                    title: "Register your own option types",
+                    content: [
+                        "To make it easy for the user to edit options, you can create your own type of options. Remember that you must do registration of option types outside the block declaration." +
+                        "<!--?prettify lang=php linenums=true?-->\n<pre class='prettyprint'><code class=\"lang-php\">" +
+                        "rosemary_register_option('option', 'choice', [], 'title', 'description');\n\n" +
+                        "rosemary_register('template_id', function ($event=null) {\n" +
+                        "\n" +
+                        "}, array(\n" +
+                        "    'title' => 'Title block',\n" +
+                        "    'description' => 'Description',\n" +
+                        "    'author' => 'You Package'\n" +
+                        "));" +
+                        "</code></pre>",
+                        r_function([
+                            {
+                                func: 'rosemary_register_option',
+                                desc: 'Function registers a new option type',
+                                params: [
+                                    'option:string - id of option',
+                                    'type:string - see table of available option types below',
+                                    'available:array/function - available option values or function if option type is function.',
+                                    'title:string - Option Display Name',
+                                    'note:string - Function Description Displayed'
+                                ],
+                                ret: 'string'
+                            }
+                        ]),
+                        r_options([
+                            {
+                                option: 'choice',
+                                desc: "Displays a selection dialog from the transferred options. Variants should be enclosed in an array and have the form:<br>" +
+                                    "<br>" +
+                                    "a) [array ('title' => '', 'value' => '')]<br>" +
+                                    "<br>" +
+                                    "b) ['value']<br>" +
+                                    "<br>" +
+                                    "In the first case, the 'title' values ​​will be displayed as options shown to the user, and the 'value' values ​​will be used as the stored values",
+                                type: 'array'
+                            },
+                            {
+                                option: 'number',
+                                desc: "Displays a field for entering a integer.",
+                                type: 'none'
+                            },
+                            {
+                                option: 'color',
+                                desc: "Chose color",
+                                type: 'none'
+                            },
+                            {
+                                option: 'function',
+                                desc: "You can pass a function to the argument \"avaiable\" with the field type \"function\". In this case, you will get the output of the function as a field for entering the value. The function can take an array from the \"option\" and \"value\" elements. The \"option\" element holds the current option. The \"value\" element stores the value of the option.",
+                                type: 'function'
+                            }
+                        ], "available_option_data_types"),
+                        "Example of registering an option with type \"function\":",
+                        "<!--?prettify lang=php linenums=true?-->\n<pre class='prettyprint'><code class=\"lang-php\">" +
+                        "rosemary_register_option('option', 'function', function ($option=array()) {\n" +
+                        "    $option['option']; // Option name\n" +
+                        "    $option['value']; // Value option" +
+                        "\n}, 'title', 'description');\n\n" +
+                        "rosemary_register('template_id', function ($event=null) {\n" +
+                        "}, array(\n" +
+                        "    'title' => 'Title block',\n" +
+                        "    'description' => 'Description',\n" +
+                        "    'author' => 'You Package'\n" +
+                        "));" +
+                        "</code></pre>",
+                        "Mirele also has its standard options that are already registered:\n",
+                        r_options([
+                            {
+                                option: 'color',
+                                desc: 'Displays a color picker dialog. Powered by WordPress API (ColorPicker). Understands the names of the colors at the input (red, blue, orange and e.t.c)',
+                                type: 'color code'
+                            },
+                            {
+                                option: 'font',
+                                desc: "Mirele has a collection of fonts (900+ fonts). You can let the user select a font from this collection. After choosing, you will need to connect the font using a special function",
+                                type: 'font name'
+                            },
+                            {
+                                option: 'icon',
+                                desc: "You can provide a selection of icons for the user. As a result of the selection, you will get the FontAwesome class. You can use it without processing. Example: <i class = \"$option\"> </i>",
+                                type: 'icon class'
+                            }
+                        ], "default_options"),
+                    ]
+                }
             ]
         }
     });

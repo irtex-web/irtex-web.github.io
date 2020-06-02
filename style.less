@@ -45,6 +45,7 @@ a {
   padding: 0.8px 0;
   display: inline-block;
   margin: 2px 0;
+    word-wrap: anywhere;
 
   &:hover > {
     color: @blue;
@@ -58,6 +59,13 @@ a {
 header.main {
   padding: 120px 0 120px 0;
   border-bottom: 1px solid @gray;
+
+    background: rgb(249,249,249);
+    background: -moz-linear-gradient(0deg, #f9f9f9 0, #fff 50%, #fff 100%);
+    background: -webkit-linear-gradient(0deg, #f9f9f9 0, #fff 50%, #fff 100%);
+    background: linear-gradient(0deg, #f9f9f9 0, #fff 50%, #fff 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#f9f9f9",endColorstr="#ffffff",GradientType=1);
+
 }
 
 ul.menu {
@@ -79,12 +87,22 @@ input[type=text].search__input {
   font-size: @fontSize;
   width: 40%;
   transition: .1s;
+    min-width: 320px;
 
   &:active, &:focus {
     background-color: #EEEEEE;
     border: 1px solid @gray;
   }
 
+}
+
+code {
+    background: @transparent;
+    border: @transparent;
+}
+
+td, th {
+    padding: 6px;
 }
 
 div[role="menu"] {
@@ -132,20 +150,23 @@ nav.navbar-white > div > div > ul > li {
   background: @transparent;
 }
 
-div.card {
-  border-right: 1px solid rgba(51,51,51,0.14);
-  margin: 24px 0;
-  text-align: center;
-}
-
-div.card:last-child {
-  border-right: none;
-}
-
 img.image {
     width: 100%;
 }
 
 .text-gray-soft {
-color: #838E95 !important;
+color: #666a6d !important;
+}
+
+
+@media (min-width:768px) {
+    div.card {
+        border-right: 1px solid rgba(51,51,51,0.14);
+        margin: 24px 0;
+        text-align: center;
+    }
+
+    div.card:last-child {
+        border-right: none;
+    }
 }

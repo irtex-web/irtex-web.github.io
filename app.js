@@ -1,5 +1,32 @@
 $(function() {
 
+    var r_function = function (list = {}) {
+
+        var body = '';
+
+        for (const function_ of list) {
+            body += `<tr>
+                           <td>${function_.func}</td>
+                           <td>${function_.desc}</td>
+                           <td>${function_.params.join('<br>')}</td>
+                           <td>${function_.ret}</td>
+                       </tr>`;
+        }
+
+        return `<table width="100%">
+
+                       <thead>
+                           <th>Function</th>
+                           <th>Description</th>
+                           <th>Params</th>
+                           <th>Return</th>
+                       </thead>
+            
+                        ${body}
+                       
+                   </table>`;
+    }
+
     var router = new VueRouter({
         mode: 'history',
         routes: []
@@ -50,36 +77,53 @@ $(function() {
         router,
         el: 'ul[role="navbar"]',
         data: {
-            items: [
-                {
-                    content: "Create page",
-                    url: "#Create page"
-                },
-                {
-                    content: "Remove page",
-                    url: "#Remove page"
-                },
-                {
-                    content: "Create block",
-                    url: "#Create block"
-                },
-                {
-                    content: "Edit block",
-                    url: "#Edit block"
-                },
-                {
-                    content: "Create WordPress page",
-                    url: "#Create WordPress page"
-                },
-                {
-                    content: "Migration (Export/Import)",
-                    url: "#Migration (Export/Import)"
-                },
-                {
-                    content: "Market",
-                    url: "#Market"
-                }
-            ]
+            items: {
+                mireleForYou: [
+                    {
+                        content: "Create page",
+                        url: "#Create page"
+                    },
+                    {
+                        content: "Remove page",
+                        url: "#Remove page"
+                    },
+                    {
+                        content: "Create block",
+                        url: "#Create block"
+                    },
+                    {
+                        content: "Edit block",
+                        url: "#Edit block"
+                    },
+                    {
+                        content: "Create WordPress page",
+                        url: "#Create WordPress page"
+                    },
+                    {
+                        content: "Migration (Export/Import)",
+                        url: "#Migration (Export/Import)"
+                    },
+                    {
+                        content: "Market",
+                        url: "#Market"
+                    },
+                    {
+                        content: "Choosing interface options",
+                        url: "#Choosing interface options"
+                    },
+                    {
+                        content: "WooCommerce",
+                        url: "#WooCommerce"
+                    }
+                ],
+                dev: [
+                    {
+                        content: "Development block",
+                        url: "#Development block"
+                    }
+                ]
+
+            }
         }
     });
 
@@ -196,8 +240,54 @@ $(function() {
                         "After successful import, your page will reload and you will see new blocks on your page\n"
                     ]
                 }
+            ],
+            dev: [
+                {
+                    'title': 'Development block',
+                    'content': [
+                        "How are package files connected in Mirele? The system checks the templates folder, indexes all files, gives the code to the antivirus for verification, and if all the checks have been passed, the code is connected. There are also options for connecting HTML files, but read about it below, since this is a completely different block development technology.",
+                        "Not all files in the folder will be included as templates. You need to have a comment in your code - Rosemary Template: Name;. So the system will understand that the template file is in the folder, and not a other PHP file.",
+                        "As a result, your code should start as in the example below.",
+                        "<pre><code data-language=\"php\">&lt;?php\n" +
+                        "\n" +
+                        "/**\n" +
+                        " * Rosemary Template: Name;\n" +
+                        " * Type: Template;\n" +
+                        " * Author: Mirele;\n" +
+                        " * Version: 1.0.0;\n" +
+                        " * Description: :);\n" +
+                        " */\n" +
+                        "\n" +
+                        "rosemary_register('template_id', function ($event=null) {\n" +
+                        "\n\t// Logic\n\n" +
+                        "}, array(\n" +
+                        "    'title' => 'Title block',\n" +
+                        "    'description' => 'Description',\n" +
+                        "    'author' => 'You Package'\n" +
+                        ")); ?></code></pre>",
+                        "Remember that what you write in the comments in your block template files will be displayed when you install a block from the market, and the meta information that you pass to the function will be displayed to users as information about the block. This allows you to register more than 1 block in one file with different meta information.",
+                        "This is how the main function for registering a template works:",
+                        r_function (
+                            [
+                                {
+                                    func: 'rosemary_register',
+                                    desc: 'Registers a block and its executable code\n',
+                                    params: [
+                                        'id:any - ID of the template. On it he will be called',
+                                        'function:function - The function that will be called when the template is on the page. The function should render content',
+                                        'meta:array - meta information so that your template can be identified among others. This information is displayed in the block collection.'
+                                    ],
+                                    ret: 'void'
+                                },
+
+                            ]
+                        )
+                    ]
+                }
             ]
         }
     });
+
+    Rainbow.color();
 
 });

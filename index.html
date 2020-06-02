@@ -22,6 +22,14 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/js/all.min.js" integrity="sha256-+Q/z/qVOexByW1Wpv81lTLvntnZQVYppIL1lBdhtIq0=" crossorigin="anonymous"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/rainbow.min.js" integrity="sha256-rxZ0ft33A1KYWHxnp8pLN9Z6CMvDdBQLdRTHK57yyWI=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/php.min.js" integrity="sha256-P96/hFsR5TNU1QbE5mqDKT/oxeVBlHMYiDCzCsZFlOU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/html.min.js" integrity="sha256-CjK5Qjx2tDNjSE+cIuolJ3VAEHAABSNe41KwHVSvzGI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/js/language/javascript.min.js" integrity="sha256-kegryCFXFkSveNLKJIv/2gGMrrC9fzj9+eJ1ogNH1lQ=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rainbow/1.2.0/themes/tomorrow-night.min.css" integrity="sha256-g6MBUo7N0c9+zJLsdsgN/nIUzYMyqxF9qnMDAvvUnLc=" crossorigin="anonymous" />
+
     <script src="app.js" async></script>
 
 </head>
@@ -29,7 +37,7 @@
 
     <nav class="navbar navbar-white navbar-fixed-top">
         <div class="container">
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
                         <a href="https://themeforest.net/user/irtex">Author on Envato</a>
@@ -76,18 +84,39 @@
 
                    </div>
 
+                   <div id="mirele_for_developers">
+
+                       <h2>Mirele for developers</h2>
+
+                       <div v-for="post in dev" v-bind:id="post.title">
+                           <h2>{{post.title}}</h2>
+                           <p v-for="content in post.content" v-html="content"></p>
+                           <hr>
+                       </div>
+
+                   </div>
+
+
                </main>
             </div>
 
             <div class="col-sm-2" role="menu">
 
                 <main>
-                    <h4>Navigation</h4>
                     <ul class="menu" role="navbar">
-                        <li v-for="item in items">
+
+                        <h4>Mirele for you</h4>
+                        <li v-for="item in items.mireleForYou">
                             <a v-bind:href="item.url">{{item.content}}</a>
                         </li>
+
+                        <h4>Mirele Dev</h4>
+                        <li v-for="item in items.dev">
+                            <a v-bind:href="item.url">{{item.content}}</a>
+                        </li>
+
                     </ul>
+
                 </main>
 
             </div>

@@ -10,6 +10,10 @@
 @font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 @default_dark_text_color: @dark;
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   font-family: @font;
@@ -40,6 +44,7 @@ a {
   font-weight: 400;
   padding: 0.8px 0;
   display: inline-block;
+  margin: 2px 0;
 
   &:hover > {
     color: @blue;
@@ -111,7 +116,7 @@ nav.navbar-white {
 nav.navbar-white > div > div > ul > li > a {
 
   color: @black;
-  padding: 8px 0;
+  padding: 8px 4px;
   font-weight: initial;
   font-size: small;
 
@@ -135,6 +140,10 @@ div.card {
 
 div.card:last-child {
   border-right: none;
+}
+
+img.image {
+    width: 100%;
 }
 
 .text-gray-soft {

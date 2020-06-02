@@ -1,15 +1,15 @@
 $(function() {
 
-    var r_function = function (list = {}) {
+    var r_function = function (list = {}, id="string") {
 
         var body = '';
 
         for (const function_ of list) {
             body += `<tr>
-                           <td>${function_.func}</td>
-                           <td>${function_.desc}</td>
-                           <td>${function_.params.join('<br>')}</td>
-                           <td>${function_.ret}</td>
+                           <td valign="top">${function_.func}</td>
+                           <td valign="top">${function_.desc}</td>
+                           <td valign="top">${function_.params.join('<br><hr>')}</td>
+                           <td valign="top">${function_.ret}</td>
                        </tr>`;
         }
 
@@ -20,6 +20,31 @@ $(function() {
                            <th>Description</th>
                            <th>Params</th>
                            <th>Return</th>
+                       </thead>
+            
+                        ${body}
+                       
+                   </table ${id ? `id=${id}` : ''}>`;
+    }
+
+    var r_options = function (list = {}, id="string") {
+
+        var body = '';
+
+        for (const function_ of list) {
+            body += `<tr>
+                           <td valign="top">${function_.option}</td>
+                           <td valign="top">${function_.desc}</td>
+                           <td valign="top">${function_.type}</td>
+                       </tr>`;
+        }
+
+        return `<table width="100%" ${id ? `id=${id}` : ''}>
+
+                       <thead>
+                           <th>Option name</th>
+                           <th>Description</th>
+                           <th>Data type</th>
                        </thead>
             
                         ${body}
@@ -120,6 +145,22 @@ $(function() {
                     {
                         content: "Development block",
                         url: "#Development block"
+                    },
+                    {
+                        content: "Register options of block",
+                        url: "#register_options_of_block"
+                    },
+                    {
+                        content: "Package manager",
+                        url: "#package_manager"
+                    },
+                    {
+                        content: "Development element",
+                        url: "#Development element"
+                    },
+                    {
+                        content: "Element types table",
+                        url: "#element_types_table"
                     }
                 ]
 
@@ -248,7 +289,7 @@ $(function() {
                         "How are package files connected in Mirele? The system checks the templates folder, indexes all files, gives the code to the antivirus for verification, and if all the checks have been passed, the code is connected. There are also options for connecting HTML files, but read about it below, since this is a completely different block development technology.",
                         "Not all files in the folder will be included as templates. You need to have a comment in your code - Rosemary Template: Name;. So the system will understand that the template file is in the folder, and not a other PHP file.",
                         "As a result, your code should start as in the example below.",
-                        "<pre><code data-language=\"php\">&lt;?php\n" +
+                        "<!--?prettify lang=php linenums=true?--><pre class='prettyprint'><code class=\"lang-php\">&lt;?php\n" +
                         "\n" +
                         "/**\n" +
                         " * Rosemary Template: Name;\n" +
@@ -264,7 +305,7 @@ $(function() {
                         "    'title' => 'Title block',\n" +
                         "    'description' => 'Description',\n" +
                         "    'author' => 'You Package'\n" +
-                        ")); ?></code></pre>",
+                        "));</code></pre>",
                         "Remember that what you write in the comments in your block template files will be displayed when you install a block from the market, and the meta information that you pass to the function will be displayed to users as information about the block. This allows you to register more than 1 block in one file with different meta information.",
                         "This is how the main function for registering a template works:",
                         r_function (
@@ -281,13 +322,207 @@ $(function() {
                                 },
 
                             ]
-                        )
+                        ),
+                        "Each block can have an unlimited number of options inside the block. They can be registered with the following function.",
+                        "<!--?prettify lang=php linenums=true?-->\n<pre class='prettyprint'><code class=\"lang-php\">" +
+                        "rosemary_register('template_id', function ($event=null) {\n\n" +
+                        "    $options = rosemary_register_block_options (array (\n" +
+                        "        'option' => 'default value'\n" +
+                        "    ));\n\n" +
+                        "}, array(\n" +
+                        "    'title' => 'Title block',\n" +
+                        "    'description' => 'Description',\n" +
+                        "    'author' => 'You Package'\n" +
+                        "));" +
+                        "</code></pre>",
+                        "<span id='register_options_of_block'></span>In the $options variable, you will get a set of options. If user has changed in the block editor, you will get the edited version of the option, not its default value.",
+                        r_function (
+                            [
+                                {
+                                    func: 'rosemary_register_block_options',
+                                    desc: 'Registers options for the current block',
+                                    params: [
+                                        'options:array - array with options. Array key - option name, Array key value - default option value'
+                                    ],
+                                    ret: 'options in the object view, but they are already changed by the user.'
+                                },
+
+                            ]
+                        ),
+                        "<span id='package_manager'></span>Your block probably has CSS styles and third-party JavaScript scripts. To connect third-party packages to the block, you should use the Package Manager.",
+                        "Mirele has a package manager. It was created specifically to connect external files and properly connect them to the system. The package manager caches all your connected data to reduce the number of requests to your servers and also speed up the loading of styles and scripts.",
+                        "<!--?prettify lang=php linenums=true?-->\n<pre class='prettyprint'><code class=\"lang-php\">" +
+                        "global $mpackage;\n" +
+                        "\n" +
+                        "$mpackage->register('template', array(\n\n" +
+                        "\t'css' => [],\n" +
+                        "\t'js' => []\n\n" +
+                        "), 'template_id');\n\n" +
+                        "rosemary_register('template_id', function ($event=null) {\n\n" +
+                        "    $options = rosemary_register_block_options (array (\n" +
+                        "        'option' => 'default value'\n" +
+                        "    ));\n\n" +
+                        "}, array(\n" +
+                        "    'title' => 'Title block',\n" +
+                        "    'description' => 'Description',\n" +
+                        "    'author' => 'You Package'\n" +
+                        "));" +
+                        "</code></pre>",
+                        "Files (CDN) must be specified as a list.\n",
+                        "Note that the template ID in the rosemary_register function and the template ID in the $mpackage->register function are the same. They must be the same, since the package manager correlates the ID of the list of packages to connect with the ID of the template, and if they match, the manager connects the packages",
+                        r_function (
+                            [
+                                {
+                                    func: '<span id="mpackage">MPackage</span>',
+                                    desc: 'Class for working with packages. Declarations on the $mpackage global variable',
+                                    params: [
+                                        "Does not have a constructor"
+                                    ],
+                                    ret: 'void'
+                                },
+                                {
+                                    func: '<span id="mpackage__register">MPackage->register</span>',
+                                    desc: 'Created to register data packets awaiting connection',
+                                    params: [
+                                        "package_type:string - the <a href='#type_of_rendering'>type of rendering</a> the package belongs to",
+                                        "data:array - Packet Array",
+                                        "id:string - ID of the block or component for which registration of packets in the system is required"
+                                    ],
+                                    ret: 'void'
+                                },
+                                {
+                                    func: '<span id="mpackage__get">MPackage->get</span>',
+                                    desc: 'Get a list of packages by type of packet data and component ID',
+                                    params: [
+                                        "package_type:string - the <a href='#type_of_rendering'>type of rendering</a> the package belongs to",
+                                        "id:string - ID of the block or component for which registration of packets in the system is required"
+                                    ],
+                                    ret: 'void'
+                                },
+
+                            ]
+                        ),
                     ]
-                }
+                },
+                {
+                    'title': 'Development element',
+                    'content': [
+                        "Each block must have not only a static HTML code, but also dynamic elements - the user can edit them.",
+                        "Each element is declared by the rre or rosemary_register_element function - both functions are identical",
+                        "<!--?prettify lang=php linenums=true?-->\n<pre class='prettyprint'><code class=\"lang-php\">" +
+                        "echo rre ('title', [\n" +
+                        "    'type' => 'text',\n" +
+                        "    'value' => 'Hello, Mirele!'\n" +
+                        "], [\n" +
+                        "    'color' => 'red',\n" +
+                        "    'font-size' => '18px'\n" +
+                        "]);" +
+                        "</code></pre>",
+                        r_function (
+                            [
+                                {
+                                    func: 'rosemary_register_element',
+                                    desc: 'Registers an item. The function is called inside the rosemary_register function. Have a child function rre',
+                                    params: [
+                                        'id:string - id for element',
+                                        'data:array - array with data',
+                                        'options:array - array with options',
+                                    ],
+                                    ret: 'string'
+                                },
+
+                            ]
+                        ),
+                        "Let's parse the \"data\" parameter.",
+                        "This parameter expects an array as input. There should be only two keys in the array: <i>type</i> and <i>value</i>.",
+                        "<i>value</i> - the default value of the item.",
+                        "The key <i>type</i> may have several possible options:",
+                        r_options ([
+                            {
+                                option: 'any',
+                                desc: 'Accepts all data',
+                                type: 'any'
+                            },
+                            {
+                                option: 'text',
+                                desc: 'The standard data type for blocks with text.',
+                                type: 'text/html/shortcode/number'
+                            },
+                            {
+                                option: 'number',
+                                desc: 'You will get a number as an element value',
+                                type: 'number'
+                            },
+                            {
+                                option: 'html',
+                                desc: 'The user can send you not only formatted text, but also a picture or table',
+                                type: 'html'
+                            },
+                            {
+                                option: 'shortcode',
+                                desc: 'You will get the result of shortcode execution',
+                                type: 'shortcode'
+                            }
+                        ], 'element_types_table'),
+                        "What you register as primary data (the data parameter) is displayed in the block as a value, but if you need additional options for an element, you can register a set of options by passing an array of data to the options parameter.",
+                        "To get item options, you should call the rosemary_get_options function.",
+                        "<!--?prettify lang=php linenums=true?-->\n<pre class='prettyprint'><code class=\"lang-php\">" +
+                        "rosemary_register('template_id', function ($event=null) {\n" +
+                        "\n" +
+                        "    echo rre ('up_title', [\n" +
+                        "        'type' => 'text',\n" +
+                        "        'value' => 'Hello, Mirele!'\n" +
+                        "    ], [\n" +
+                        "        'color' => 'green',\n" +
+                        "        'font-size' => '12px'\n" +
+                        "    ]);\n" +
+                        "\n" +
+                        "    echo rre ('title', [\n" +
+                        "        'type' => 'text',\n" +
+                        "        'value' => 'Hello, Mirele!'\n" +
+                        "    ], [\n" +
+                        "        'color' => 'red',\n" +
+                        "        'font-size' => '18px'\n" +
+                        "    ]);\n" +
+                        "    \n" +
+                        "    /** The function will receive options for the last registered item. That is, for title */\n" +
+                        "    $options = rosemary_get_options();\n\n" +
+                        "    /** The function will receive options for a specific element. That is, for \"up_title\" */\n" +
+                        "    $options = rosemary_get_options(rosemary_get_full_id('up_title'));" +
+                        "\n\n" +
+                        "}, array(\n" +
+                        "    'title' => 'Title block',\n" +
+                        "    'description' => 'Description',\n" +
+                        "    'author' => 'You Package'\n" +
+                        "));" +
+                        "</code></pre>",
+                        r_function([
+                            {
+                                func: 'rosemary_get_options',
+                                desc: 'The function will receive options for a specific element. If you do not pass the ID parameter, function will use recent element ',
+                                params: [
+                                    'id:string - full id for element'
+                                ],
+                                ret: 'object'
+                            }
+                        ]),
+                        r_function([
+                            {
+                                func: 'rosemary_get_full_id',
+                                desc: 'The function gets the full ID for the element. This ID must be passed to functions that require a full element ID',
+                                params: [
+                                    'id:string - id for element'
+                                ],
+                                ret: 'string'
+                            }
+                        ])
+                    ]
+                },
+
             ]
         }
     });
 
-    Rainbow.color();
+    PR.prettyPrint()
 
 });

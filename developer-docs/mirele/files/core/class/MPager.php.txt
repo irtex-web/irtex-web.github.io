@@ -1,0 +1,286 @@
+<?php
+
+/**
+ * WP admin page controller
+ * * Attention! Not all pages are routed through this page manager.
+ *
+ * @version: 1.0.0
+ * @package: Mirele
+ * @author: Mirele
+ */
+
+
+/**
+ * Class MPager
+ *
+ * The function responsible for the generation of the page "Quick use".
+ * these pages do not require splitting into several large files,
+ * which is why they are successfully placed in a class where
+ * they are provided with small instructions to facilitate content generation
+ *
+ * @version: 1.0.0
+ * @author: Mirele
+ */
+
+class MPager
+{
+
+    private $dependencies = array ();
+
+    static public function void () {
+
+    }
+
+    public function register ($page='null', $content=null) {
+        $this->dependencies[$page][] = $content;
+    }
+
+    public function execute ($page='null') {
+        if (isset($this->dependencies[$page])) {
+
+            if (is_array($this->dependencies[$page]) or is_object($this->dependencies[$page])) {
+                foreach ($this->dependencies[$page] as $part) {
+                    if (is_array($part) or is_object($part)) {
+                        foreach ($part as $do_action) {
+                            if (is_callable($do_action)) {
+                                echo call_user_func($do_action, (object) array(
+                                    'self' => self::class,
+                                    'this' => $this
+                                ));
+                            } else {
+                                if (has_action($do_action)) {
+                                    do_action ($do_action);
+                                }
+                            }
+                        }
+                    } elseif (is_callable($part)) {
+
+                        echo call_user_func($part, (object) array(
+                            'self' => self::class,
+                            'this' => $this,
+                            'class' => new MPager()
+                        ));
+
+                    } else {
+
+                        echo htmlspecialchars_decode($part);
+
+                    }
+                }
+            } elseif (is_callable($this->dependencies[$page])) {
+                echo call_user_func($this->dependencies[$page], (object) array(
+                    'self' => self::class,
+                    'this' => $this,
+                    'class' => new MPager()
+                ));
+            }
+
+
+        }
+    }
+
+    /**
+     * A tool for generating settings.
+     * The Mirele system has functions for quick and convenient generation
+     * of settings that give arrays with a set of parameters.
+     * To make it easier for the system to generate data arrays
+     * in the usual and familiar settings in the form of HTML
+     * forms this function is used
+     *
+     * @param $fluids
+     * @param $id
+     * @version: 1.0.0
+     * @author: Mirele
+     */
+
+    static public function ui_settings ($fluids=null, $id=null, $formAttr='method="post" enctype="multipart/form-data" action="options.php"') {
+
+        global $msettings;
+
+        ?>
+
+        <form <?php echo $formAttr; ?>>
+
+            <?php settings_fields($fluids); ?>
+
+            <div class="wrap">
+                <div class="root">
+
+                    <?php foreach ($msettings->get($id) as $settings_group): ?>
+
+                        <?php foreach ($settings_group as $title => $group): ?>
+
+                            <h3><?php echo $title; ?></h3>
+
+
+                            <?php foreach ($group as $id => $element): ?>
+
+                                <?php if ($element['type'] == 'radio'): ?>
+
+                                    <div>
+
+                                        <h4><?php echo $element['text']; ?></h4>
+
+                                        <?php foreach ($element['value'] as $v): ?>
+
+                                            <p>
+                                                <input type="<?php echo $element['type']; ?>" name="<?php echo $id; ?>"
+                                                       value="<?php echo is_array($v) ? $v['value'] : $v; ?>" <?php echo get_option($id, isset($element['default']) ? $element['default'] : 'false') == (is_array($v) ? $v['value'] : $v) ? 'checked' : '' ?>>
+                                                <?php echo is_array($v) ? $v['text'] : $v; ?>
+                                            </p>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+                                <?php elseif ($element['type'] == 'mirele_theme_render'): ?>
+
+                                    <div>
+
+                                        <?php if(isset($element['text'])): ?>
+                                            <h4><?php echo $element['text']; ?></h4>
+                                        <?php endif; ?>
+
+                                        <?php foreach ($element['value'] as $id__ => $render): ?>
+
+                                            <div>
+
+                                                <p>
+                                                    <input name="<?php echo isset($element['option']) ? $element['option'] : $render->type; ?>" type="radio"
+                                                           value="<?php echo $id__; ?>"
+                                                        <?php echo get_option(isset($element['option']) ? $element['option'] : $render->type, isset($element['default']) ? $element['default'] : 'false') == $id__ ? 'checked' : '' ?>>
+                                                        <?php echo isset($render->title) ? $render->title : $render->type; ?> </input>
+                                                </p>
+
+                                                <?php if (isset($render->description)): ?>
+
+                                                    <small style="width: 390px; display: block;"><?php echo $render->description; ?></small>
+
+                                                <?php endif; ?>
+
+                                            </div>
+
+                                        <?php endforeach; ?>
+
+                                    </div>
+
+
+                                <?php elseif ($element['type'] == 'function'): ?>
+
+                                    <?php
+
+                                        if (is_callable($element['value'])) {
+                                            echo call_user_func($element['value'], $id);
+                                        }
+
+                                    ?>
+
+                                <?php elseif ($element['type'] == 'wp-text'): ?>
+
+                                    <div>
+                                        <h5 class="wp-text-h5">
+                                            <?php echo $element['text']; ?>
+                                        </h5>
+
+                                        <input  type="text" name="<?php echo $id; ?>"
+                                                value="<?php echo $element['value']; ?>"
+                                            <?php echo get_option($id, isset($element['default']) ? $element['default'] : 'false') == $element['value'] ? 'checked' : '' ?>
+                                                class="input">
+
+                                    </div>
+
+                                <?php else: ?>
+
+                                    <div>
+                                        <p>
+                                            <input type="<?php echo $element['type']; ?>" name="<?php echo $id; ?>"
+                                                   value="<?php echo $element['value']; ?>" <?php echo get_option($id, isset($element['default']) ? $element['default'] : 'false') == $element['value'] ? 'checked' : '' ?>>
+                                            <?php echo $element['text']; ?>
+                                        </p>
+                                    </div>
+
+                                <?php endif; ?>
+
+                                <?php if (isset($element['note'])): ?>
+
+                                    <small>
+                                        <?php echo $element['note']; ?>
+                                    </small>
+
+                                <?php endif; ?>
+
+                            <?php endforeach; ?>
+
+
+                        <?php endforeach; ?>
+
+                    <?php endforeach; ?>
+
+                </div>
+
+                <hr style="margin-top: 24px">
+
+                <input type="submit" value="Save the settings" class="button-primary">
+
+            </div>
+
+        </form>
+
+        <?php
+
+    }
+
+    static public function ui_tabs ($list=array()) {
+
+        if (isset($list) and is_array($list)) {
+            ?> <nav class="nav-tab-wrapper woo-nav-tab-wrapper"> <?php
+           foreach ($list as $tab) {
+
+               $tab = is_array($tab) ? (object) $tab : (object) array (
+                   'content' => $tab,
+                   'id' => $tab
+               );
+
+               $get = $_GET;
+               if (in_array('tab', $get)) {
+                   unset($get['tab']);
+               }
+
+               ?>
+
+                   <a href="<?php echo  MIRELE_URL . "?" . http_build_query($get) . "&tab=" . (isset($tab->id) ? $tab->id : 'default') ?>" class="nav-tab <?php echo  $_GET['tab'] == (isset($tab->id) ? $tab->id : 'default') ? 'nav-tab-active' : '' ?>">
+                       <?php echo  isset($tab->content) ? $tab->content : 'default' ?>
+                   </a>
+
+               <?php
+
+           }
+           ?> </nav> <?php
+        }
+
+    }
+
+    static public function ui_current_tab ($other_get=false) {
+        if ($other_get and is_array($other_get) and isset($other_get['tab'])) {
+            return (object) array(
+                'id' => $other_get['tab']
+            );
+        } elseif (isset($_GET['tab'])) {
+            return (object) array(
+                'id' => $_GET['tab']
+            );
+        } else {
+            return (object) array(
+                'id' => 'main'
+            );
+        }
+    }
+
+    static public function ui_part ($id=null, $content=false) {
+
+        global $majax;
+        $majax->register_ajax("mui_$id", $content);
+
+    }
+
+} 

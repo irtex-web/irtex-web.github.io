@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Rosemary Template: Google Analytics;
+ * Type: Package;
+ * Author: Mirele;
+ * Version: 1.0.0;
+ * Description: Hidden Google Analytics Integration Block;
+ */
+
+rosemary_register('google_analytics', function () {
+
+    echo rre('html', array(
+        'type' => 'html',
+        'value' => 'Your Google Code here'
+    ));
+
+}, array(
+    'title' => 'Google Analytics',
+    'description' => 'Block for embedding Google analytics code',
+    'author' => 'Mirele'
+));

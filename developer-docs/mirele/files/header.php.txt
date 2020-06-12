@@ -1,0 +1,60 @@
+<?php if (!wp_doing_ajax()): ?>
+
+    <!DOCTYPE html>
+
+    <?php mirele_execute_component_logic('navbar', get_option('mrl_wp_header', 'standart')); ?>
+
+    <html <?php language_attributes(); ?>>
+
+    <head>
+
+        <meta charset="<?php bloginfo( 'charset' ); ?>">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <?php
+
+            global $mdata;
+            global $mrouter;
+            global $mirele_js_var;
+
+            MPackage::single_font('Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900');
+
+            wp_head();
+            do_action('mirele_header');
+
+            /**
+             * Disable scaling of the site.
+             * It's not always cool when a site gets smeared because of a double tap
+             */
+
+            if (!get_option('mrl_wp_user_scalable', false) == 'true') {
+                echo "<meta name=\"viewport\" content=\"width=device-width, user-scalable=no\">";
+                echo "<script> document.ontouchmove = function(event){event.preventDefault();} </script>";
+                echo "<style>body,html {-webkit-overflow-scrolling: touch;}</style>";
+            }
+
+        ?>
+
+        <meta name="description" content="<?php global $mdatal; echo $mdata->get('seo_description'); ?>">
+        <meta name="keywords" content="<?php global $mdatal; echo $mdata->get('seo_keywords'); ?>">
+        <meta name="author" content="<?php global $mdatal; echo $mdata->get('seo_author'); ?>">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body <?php body_class($mdata->get('body_classes')); ?> <?php echo $mdata->get('body_attrs', '');?>>
+
+        <?php mirele_execute_component ('navbar', get_option('mrl_wp_header', 'standart')); ?>
+
+        <?php wp_body_open(); ?>
+
+        <?php is_page_template(ROSEMARY_CANVAS) ? mirele_execute_component('preloader', get_option('mrl_wp_preloader', 'without')) : false ?>
+
+<?php endif; ?>

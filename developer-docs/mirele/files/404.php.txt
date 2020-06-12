@@ -1,0 +1,7 @@
+<?php get_header(); ?>
+
+<div class="container content-body single-page">
+    <h1 class="text-404">NOT FOUND</h1>
+</div>
+
+<?php get_footer(); ?>

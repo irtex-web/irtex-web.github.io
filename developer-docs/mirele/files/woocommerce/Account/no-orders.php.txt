@@ -1,0 +1,11 @@
+<?php
+
+function woocommerce_account_mirele_oreders_none_render () {
+    
+    echo sprintf('<div class="text-center woo-empty-box">
+		<img width="64px" src="%s" alt="page orders is empty" class="el_698985002">
+		<h1>You orders list is empty</h1>
+		<p>Let`s go back to the store and start shopping?</p>
+	</div>', PATH_EMOJI_BOX);
+
+}

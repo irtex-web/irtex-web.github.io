@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="638246f8-d347-4950-af3a-14d8b5649f6d" name="Default Changelist" comment="Update" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Less File" />
+        <option value="package.json" />
+        <option value="Tag Library Descriptor" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1ciK7HTq4Qubdo7N3u1kmmdmQxl" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/developer-docs/mirele" />
+    <property name="list.type.of.created.stylesheet" value="Less" />
+    <property name="nodejs_package_manager_path" value="npm" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="638246f8-d347-4950-af3a-14d8b5649f6d" name="Default Changelist" comment="" />
+      <created>1591005804296</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1591005804296</updated>
+      <workItem from="1591005809819" duration="23675000" />
+      <workItem from="1591083527409" duration="4154000" />
+      <workItem from="1591094746424" duration="22521000" />
+      <workItem from="1591951945440" duration="277000" />
+    </task>
+    <task id="LOCAL-00001" summary="Update">
+      <created>1591005942241</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1591005942256</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Update">
+      <created>1591005975841</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1591005975841</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update">
+      <created>1591006063064</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1591006063064</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Update">
+      <created>1591013155446</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1591013155446</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Update">
+      <created>1591013232522</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1591013232522</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Update">
+      <created>1591023735819</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1591023735819</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update">
+      <created>1591086711727</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1591086711727</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update">
+      <created>1591101020899</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1591101020900</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Update">
+      <created>1591113115610</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1591113115610</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Update">
+      <created>1591117697634</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1591117697634</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update">
+      <created>1591952098719</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1591952098719</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update">
+      <created>1591952119922</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1591952119922</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="694" y="309" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1591019435885">
+      <screen x="0" y="36" width="1920" height="1044" />
+    </state>
+    <state x="694" y="309" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.36.1920.1044@0.36.1920.1044" timestamp="1591019435885" />
+    <state x="782" y="266" key="Vcs.Push.Dialog.v2" timestamp="1591117700140">
+      <screen x="0" y="36" width="1920" height="1044" />
+    </state>
+    <state x="782" y="266" key="Vcs.Push.Dialog.v2/0.36.1920.1044@0.36.1920.1044" timestamp="1591117700140" />
+    <state x="554" y="173" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1591117272766">
+      <screen x="0" y="36" width="1920" height="1044" />
+    </state>
+    <state x="554" y="173" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser/0.36.1920.1044@0.36.1920.1044" timestamp="1591117272766" />
+    <state x="624" y="257" width="672" height="677" key="run.anything.popup" timestamp="1591085765038">
+      <screen x="0" y="36" width="1920" height="1044" />
+    </state>
+    <state x="624" y="257" width="672" height="677" key="run.anything.popup/0.36.1920.1044@0.36.1920.1044" timestamp="1591085765038" />
+  </component>
+</project>

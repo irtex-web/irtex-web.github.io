@@ -1,0 +1,230 @@
+<?php
+
+add_action ('mirele_ui_market_install', function ($e=null) {
+
+    ?>
+
+    <div class="wp-filter">
+
+        <ul class="filter-links">
+            <li class="plugin-install-featured"><a href="<?php echo $_SERVER['REQUEST_URI'] . "&tab=install&tab_" ?>" <?php if (empty($_GET['tab_'])) { echo 'class="current"'; } ?> aria-current="page">Home repository</a> </li>
+            <li class="plugin-install-popular"><a href="<?php echo $_SERVER['REQUEST_URI'] . "&tab=install&tab_=url" ?>" <?php if ($_GET['tab_'] == 'url') { echo 'class="current"'; } ?>>Install from URL</a> </li>
+            <li class="plugin-install-popular"><a href="<?php echo $_SERVER['REQUEST_URI'] . "&tab=install&tab_=zip" ?>" <?php if ($_GET['tab_'] == 'zip') { echo 'class="current"'; } ?>>Install from ZIP</a> </li>
+            <li class="plugin-install-popular"><a href="<?php echo $_SERVER['REQUEST_URI'] . "&tab=install&tab_=add_git" ?>" <?php if ($_GET['tab_'] == 'add_git') { echo 'class="current"'; } ?>>Add new git</a> </li>
+        </ul>
+
+        <form class="search-form" method="get">
+            <input type="hidden" name="tab" value="search">
+            <label class="screen-reader-text" for="typeselector">Search by:</label>
+
+            <label><span class="screen-reader-text">Search</span>
+                <input type="search" name="s" value="" class="wp-filter-search" placeholder="Search...">
+            </label>
+
+            <input type="submit" id="search-submit" class="button" value="Search block">
+
+            <input type="hidden" name="tab" value="install">
+            <input type="hidden" name="page" value="rosemary_render_page_market">
+
+        </form>
+
+    </div>
+
+
+
+        <?php if ($_GET['tab_'] == 'url'): ?>
+
+            <div class="wrap">
+
+                <?php if (!empty($error_upload)): ?>
+
+                    <div class="notice notice-warning">
+                        <p><?php echo $error_upload; ?></p>
+                    </div>
+
+                <?php endif; ?>
+
+                <div class="root">
+
+                    <div class="upload-theme" style="display: block">
+                        <p class="install-help">If you have a direct link to the block you want to install, paste it here</p>
+
+                        <form onsubmit="return false;" method="post" enctype="multipart/form-data" class="wp-upload-form" action="<?php echo $_SERVER['REQUEST_URI'] . "&tab=install&tab_=zip" ?>">
+                            <input type="text" id="themeurl" name="themeurl" style="width: -webkit-fill-available;" placeholder="URL">
+                            <button type="submit" class="button" onclick="rosemary_install($('#themeurl').val())" > Install Now </button>
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+        <?php elseif ($_GET['tab_'] == 'zip'): global $error_upload;?>
+
+            <?php
+
+            if (isset($_FILES['themezip'])) {
+                $error_upload = MMarket::install_from_zip_file($_FILES['themezip'])['message'];
+            }
+
+            ?>
+
+            <div class="wrap">
+
+                <?php if (!empty($error_upload)): ?>
+
+                    <div class="notice notice-warning">
+                        <p><?php echo $error_upload; ?></p>
+                    </div>
+
+                <?php endif; ?>
+
+                <div class="root">
+
+                    <div class="upload-theme" style="display: block">
+                        <p class="install-help">If you have a .zip file of Mirele blocks, open it using the form below.</p>
+
+                        <form method="post" enctype="multipart/form-data" class="wp-upload-form">
+                            <input type="file" id="themezip" name="themezip">
+                            <input type="submit" name="install-theme-submit" id="install-theme-submit" class="button" value="Install Now" disabled="">
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+
+        <?php elseif ($_GET['tab_'] == 'add_git'): global $error_upload;?>
+
+            <?php
+
+            if ($_POST) {
+
+                if ($_POST['git']) {
+
+                    if (strpos($_POST['git'], '.git') !== false) {
+
+                        $git = str_replace(['https://github.com/', '.git'], '',  $_POST['git']);
+
+                        if (is_array(get_option('rosemary_gits', false))) {
+
+                            $list = get_option('rosemary_gits', array());
+                            $list[] = $git;
+
+                            update_option('rosemary_gits', $list);
+
+                        } else {
+                            update_option('rosemary_gits', array($git));
+                        }
+
+                    }
+
+                } elseif ($_POST['action']) {
+
+                    $git_for_remove = str_replace("remove:", '', $_POST['action']);
+
+                    if (is_array(get_option('rosemary_gits', false))) {
+
+                        $list = get_option('rosemary_gits', array());
+
+                        unset($list[array_search($git_for_remove, $list)]);
+
+                        update_option('rosemary_gits', $list);
+
+                    }
+
+                }
+
+            }
+
+            ?>
+
+            <div class="wrap">
+
+                <div class="root">
+
+                    <h3>Manage you gits</h3>
+                    <p>
+                        You can add your own Git repositories to search them. Please note that only public repositories are supported. <br>
+                        It is also worth paying attention to the fact that you will not receive component updates from these repositories, <br>
+                        you will not receive news, system updates for security purposes
+                    </p>
+
+                    <br>
+
+                    <table class="wp-list-table widefat fixed striped posts">
+                        <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th width="80px">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <th> <?php echo ROSEMARY_GIT; ?> </th>
+                            <th>
+
+                            </th>
+                        </tr>
+
+                        <?php foreach (get_option('rosemary_gits', []) as $git): ?>
+
+                            <tr>
+                                <th> <?php echo $git; ?> </th>
+                                <th>
+
+                                    <form method="post">
+                                        <button type="submit" class="button-primary" name="action" value="remove:<?php echo $git; ?>"> Remove </button>
+                                    </form>
+
+                                </th>
+                            </tr>
+
+                        <?php endforeach; ?>
+
+                        </tbody>
+
+                        <tfoot>
+                        <tr>
+                            <th colspan="2" style="text-align: right;">
+                                <div>
+                                    <form method="post" style="margin: 0px">
+                                        <input type="text" name="git" placeholder="URL to git (https://github.com/irtex-web/mirele.git)" style="width: 40%">
+                                        <input type="submit" class="button-primary" value="Add Now">
+                                    </form>
+                                </div>
+                            </th>
+                        </tr>
+                        </tfoot>
+
+                    </table>
+
+                </div>
+            </div>
+
+        <?php else: ?>
+
+        <?php
+
+        $market = MMarket::search('template', isset($_GET['s']) ? $_GET['s'] : 'mirele', false, false);
+
+        ?>
+
+            <div id="the-list">
+
+                <?php
+
+                    foreach ($market->items as $package) {
+                        do_action('mirele_ui_market_template_package', $package);
+                    }
+
+                ?>
+
+            </div>
+
+        <?php endif; ?>
+
+    <?php
+
+});

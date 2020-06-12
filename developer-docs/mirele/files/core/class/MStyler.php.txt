@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * Class MStyler
+ * Class for forming styles. It is necessary to create custom CSS styles that will be added to the page as a script tag in the footer
+ *
+ * @version: 1.0.0 Beta
+ * @author: Mirele
+ * @package: Mirele
+ */
+
+class MStyler {
+
+    private $style = [];
+
+    public function register ($page='any', $element="*", $style=array()) {
+        $this->style[$page][$element] = array_unique(array_merge(is_array($this->style[$page][$element]) ? $this->style[$page][$element] : [], is_array($style) ? $style : []));
+    }
+
+    public function execute ($page='any', $script_tag=true) {
+        if (isset($this->style[$page])){
+            if (is_array($this->style[$page])) {
+                if ($script_tag) { echo "<style type='text/css'>"; }
+                foreach ($this->style[$page] as $component => $data) {
+                    echo "$component {";
+
+                    foreach ($data as $style => $value) {
+                        echo "$style : $value;";
+                    }
+
+                    echo "}";
+                }
+                if ($script_tag) { echo "</style>"; }
+            }
+        }
+    }
+
+}

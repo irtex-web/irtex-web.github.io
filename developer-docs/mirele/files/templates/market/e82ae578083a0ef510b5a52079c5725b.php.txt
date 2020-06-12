@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Rosemary Template: Developer Example OOP;
+ * Type: Package;
+ * Author: Mirele;
+ * Version: Education 1.0.0;
+ * Description: A block for developers. Its purpose is to show the possibilities of working with the editor using OOP and rejecting functions when rendering content;
+ *
+ */
+
+$template = new RTemplate;
+
+$template->add_element ('title', 'text', 'Hello 35');
+$template->add_element ('description', 'text', '345345345');
+$template->option ('color', 'red');
+$template->body("{{title}} - {{description}} {{lorem}} {{test::hello world}} {{32432432::346972648 345}}");
+$template->register ('depressed');

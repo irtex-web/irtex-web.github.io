@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * Rosemary Template: Colorful Gallery;
+ */
+
+rosemary_register('colorful_gallery', function ($event=null) {
+?>
+
+<section class="theme theme-gallery">
+
+    <div class="container">
+
+        <h2 class="text-center text-subtitle text-shadow color-space-light">
+                    <?php echo rosemary_register_element("title", [
+                        'value' => 'You can look at the product.',
+                        'type' => 'text'
+                    ]); ?>  </h2>
+        <h1 class="text-center text-inside text-shadow">
+                    <?php echo rosemary_register_element("subtitle", [
+                        'value' => 'In our gallery',
+                        'type' => 'text'
+                    ]); ?> </h1>
+
+        <div class="separator-big"></div>
+
+        <div class="row container-gallery text-center" id="content-gallery">
+
+
+            
+        </div>
+
+    </div>
+
+    <div class="separator-middle"></div>
+
+</section>
+
+<?php }, array(
+    'title' => 'Colorful Photo gallery',
+    'description' => 'Photo gallery that immerses the user in viewing photos! Attention, you will need the plugin to use the gallery. If you bought a template, it should be delivered in the archive with the theme',
+    'author' => 'Mirele Package Colorful'
+)); ?>

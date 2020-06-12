@@ -1,0 +1,291 @@
+<?php
+
+/**
+ * Rosemary Template: Developer;
+ * Type: Package;
+ * Author: Mirele;
+ * Version: Education 1.0.0;
+ * Description: A test block with a guide for collecting your template blocks;
+ *
+ * Attention! If your ad blocks don't work, check to see if they are protected by antivirus software (on the dashboard page).
+ */
+
+/**
+ * Mirele has a pseudo-function 'lock'- it forces the antivirus to react and block
+ * the file so that it is not indexed by the system. Delete it so that all functions are indexed
+ */
+
+lock;
+
+/**
+ * $mpackage - new batch data Manager.
+ * It is used for easy registration of components and dependencies between them.
+ * In the example below,
+ * I show how you can register styles and JavaScript code from a third-party source
+ */
+
+global $mpackage;
+
+$id_template = 'developer_blank';
+
+$mpackage->register('template', array(
+	'css' => [],
+	'js' => []
+), $id_template);
+
+/**
+ * I didn't pass anything in the CSS and JS array, but I think it's clear how to work with them.
+ *
+ * Example:
+ * $mpackage->register('template', array(
+ *	  'css' => [
+ *		  'url to my css style'
+ *	  ],
+ *	  'js' => [
+ *		  'url to my css style'
+ *	  ]
+ * ), $id_template);
+ *
+ * What is 'template'?
+ * This is the data type. For blocks, this type must be 'template'.
+ * For component sets - 'package'
+ *
+ * PS: Your styles should (but may not) be cached for 12 hours.
+ *
+ */
+
+rosemary_register($id_template, function($e=null) {
+
+	/**
+	 * Example of registering a component as text in a template
+	 *
+	 * rre($id, $data, $options) = abbreviated entry from rosemary_register_element ($id, $data, $options)
+	 */
+
+	echo rre ('title', [
+		'type' => 'text',
+		'value' => 'Hello, Mirele!'
+	]);
+
+  
+	/**
+	 * Each element also has a cell for storing its own options.
+     * Let me show you how you can register an element with any set of options.
+     * PS: I do not recommend making more than 7-8 options per element, since the space in the client database is usually limited
+	 */
+
+	echo rre ('title', [
+		'type' => 'text',
+		'value' => 'Hello, Mirele!'
+	], [
+		'color' => 'red',
+      	'font-size' => '18px'
+    ]);
+  
+	/**
+	 * Well, it's easy to register text,
+	 * but how do I make an image?
+	 */
+
+	echo rosemary_get_single_image(rre ('image', [
+		'type' => 'src',
+		'value' => ''
+	]));
+
+	/**
+	 * You can find documentation for the new data types in github
+	 *
+	 * https://github.com/irtex-web/mirele
+	 */
+
+	/**
+	 * As we can see, this is also easy.
+	 * In the case of the src data type,
+	 * the image ID is specified as value,
+	 * not its link, so to get a link to the image,
+	 * the output of the function is wrapped in another function
+	 */
+
+	/**
+	 * In $e, we get all the block elements as an array.
+	 * An example of output of such data is shown below
+	 */
+
+	echo $e['elements'][rosemary_get_full_id('title')]->element_value;
+
+	/**
+	 * Data received in $e is clean.
+	 * They are not processed in any way,
+	 * which is why they ignore some filters.
+	 *
+	 * I don't recommend working with such data for no particular reason
+	 */
+
+}, array(
+
+	/**
+	 * It`s meta information.
+	 */
+
+	'title' => 'Developer Kit',
+	'description' => 'Block for developer',
+	'author' => 'Mirele'
+
+));
+
+/**
+ * You can also supply other types of elements with blocks,
+ * such as: woocommerce product card, navbar, footer and etc.
+ *
+ * Examples of registered elements are shown below
+ */
+
+/**
+ * Registering Navbar
+ */
+
+mirele_register_component("{ID}", function ($e=null) {
+
+	?>
+
+	<h1>Content</h1>
+
+	<?php
+
+}, [
+	'type' => 'navbar',
+	'title' => '{TITLE}',
+	'description' => '{DESCRIPTION}',
+]);
+
+/**
+ * Navbar is called later than the body tag is defined,
+ * but what if you need to add your own functions before
+ * the body appears? Use the function below
+ */
+
+/**
+ * Please note!
+ * The type of logical function and its ID
+ * must match the type and ID of the content
+ * render function (I specified {ID} for example)
+ */
+
+mirele_register_component_logic('{ID}', function ($e=null) {
+
+
+	/**
+	 * Let's take a look at this demo function.
+	 * First, we check whether the user is on the page created in the rosemary editor
+	 */
+
+	if (!is_page_template(ROSEMARY_CANVAS)) {
+
+		/**
+		 * If Yes, we will add a function to the <head> header
+		 */
+
+		add_action('mirele_header', function () {
+
+			/**
+			 * Adding your class to <body> using the filter
+			 */
+
+			add_filter('body_class', 'add_header_class');
+			function add_header_class($classes)
+			{
+				$classes[] = 'body-margin-standart-header';
+				return $classes;
+			}
+
+		});
+
+	}
+
+}, [
+	'type' => 'navbar'
+]);
+
+/**
+ * Registering preloader
+ */
+
+mirele_register_component("{ID}", function ($e=null) {
+
+}, [
+	'type' => 'preloader',
+	'title' => 'Standart preloader'
+]);
+
+/**
+ * Registering footer
+ */
+
+mirele_register_component('{ID}', function ($e=null) {
+
+	?>
+
+	<footer>
+
+	</footer>
+
+	<?php
+
+}, [
+	'type' => 'footer',
+	'title' => 'Minimalistic white'
+]);
+
+/**
+ * Registering WooCommerce card
+ */
+
+mirele_register_component('woo-product-card-theme-full', function ($e=null) {
+
+	global $bootstrap;
+	global $product;
+	global $loop_type;
+
+	/**
+	 * Example of registering a woocommerce card.
+	 *
+	 * Explaining the value of variables:
+	 * $e - If you want to display the standard content of the product profile, just enter $e(); (Line: 214)
+	 * $bootstrap - Bootstrap markup for a single card
+	 * $loop_type - Loop type. Can be 'product' and 'category'
+	 * $product - WooCommerce product object
+	 */
+
+	?>
+
+	<div class="woo-product col-xs-12 col-sm-<?php echo $bootstrap->sm; ?> col-md-<?php echo $bootstrap->md; ?> col-lg-<?php echo $bootstrap->lg; ?>">
+		<div>
+
+			<?php //$e(); ?>
+
+			<?php if ($loop_type == 'product'): ?>
+
+				<a href="<?php echo get_permalink( $product->get_id() ); ?>" class="null-link">
+
+					<img src="<?php echo $product->get_image_id() ? wp_get_attachment_url($product->get_image_id()) : wc_placeholder_img_src(); ?>" class="woo-product-full-cart-loop" style="background-image: url('<?php echo wp_get_attachment_url($product->get_image_id()); ?>')">
+
+					<div class="woo-content-full">
+						<div class="title"><?php echo $product->get_name(); ?></div>
+						<div class="price"><?php echo get_woocommerce_currency_symbol() . ' ' . $product->get_price(); ?></div>
+					</div>
+
+				</a>
+
+			<?php endif; ?>
+
+		</div>
+	</div>
+
+	<?php
+
+}, [
+	'type' => 'woo_product_cart_loop',
+	'title' => 'No frames',
+	'description' => 'Product card in the full width and height of the product. No frames.'
+]);
+

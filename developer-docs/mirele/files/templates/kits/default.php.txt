@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * Rosemary Template: Default-Kit;
+ * Kits is a complex and extensive concept within Mirele. You are currently editing a standard feature set file.
+ */
+
+/**
+ * Navs
+ */
+

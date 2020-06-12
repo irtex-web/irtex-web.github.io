@@ -1,0 +1,52 @@
+<?php
+
+/**
+ * This script is responsible for storing
+ * data inside WP. It registers settings, allows you to store a small amount of data
+ * inside WP global variables
+ *
+ * @author: Mirele
+ * @version: 1.0.0
+ * @package: Mirele
+ */
+
+class MData {
+
+    private $data = array();
+
+    public function append ($key=null, $value=null) {
+        if (isset($this->data[$key]) and !empty($this->data[$key])) {
+            return $this->data[$key] = $this->data[$key] . $value;
+        } else {
+            $this->data[$key] = $value;
+        }
+    }
+
+    public function set ($key=null, $value=null) {
+        return $this->data[$key] = $value;
+    }
+
+    public function get ($key=null, $ifNull=false) {
+        if (isset($this->data[$key]) and !empty($this->data[$key])) {
+            return $this->data[$key];
+        } else {
+            return $ifNull;
+        }
+    }
+
+    /**
+     * Working with variables in JavaScript.
+     * All variables set by the Data:: js_set method
+     * will be available from the window variable in JavaScript.
+     *
+     * @version: 1.0.0
+     */
+
+    public function js_set ($key=null, $value=null) {
+
+        global $mirele_js_var;
+        $mirele_js_var[$key] = $value;
+
+    }
+
+}

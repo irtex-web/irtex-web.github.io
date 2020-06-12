@@ -1,0 +1,925 @@
+<?php
+
+function wp_setups()
+{
+
+    function setup_wp_markup($only = 'all')
+    {
+
+        function navmenus()
+        {
+            register_nav_menus(array(
+                'header' => 'Header'
+            ));
+            register_nav_menus(array(
+                'footer' => 'Footer'
+            ));
+        }
+
+        function sidebars()
+        {
+
+            add_action('widgets_init', function () {
+
+                register_sidebar(array(
+                    'name' => __('Right sidebar (page)', ''),
+                    'id' => 'right-side-page',
+                    'description' => __('Sidebar is displayed on the pages', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Left sidebar (page)', ''),
+                    'id' => 'left-side-page',
+                    'description' => __('Sidebar is displayed on the pages', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+
+                register_sidebar(array(
+                    'name' => __('Right sidebar (post)', ''),
+                    'id' => 'right-side-single',
+                    'description' => __('Sidebar is displayed on the blog post page.', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Left sidebar (post)', ''),
+                    'id' => 'left-side-single',
+                    'description' => __('Sidebar is displayed on the blog post page.', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+
+                register_sidebar(array(
+                    'name' => __('Right sidebar (product)', ''),
+                    'id' => 'right-side-product',
+                    'description' => __('Sidebar is displayed on the product page.', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Left sidebar (product)', ''),
+                    'id' => 'left-side-product',
+                    'description' => __('Sidebar is displayed on the product page.', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+
+                register_sidebar(array(
+                    'name' => __('Right sidebar (list products)', ''),
+                    'id' => 'right-side-list-products',
+                    'description' => __('Sidebar is displayed on the products list page.', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Left sidebar (list products)', ''),
+                    'id' => 'left-side-list-products',
+                    'description' => __('Sidebar is displayed on the products list page.', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+
+                register_sidebar(array(
+                    'name' => __('Under the product (single product)', ''),
+                    'id' => 'single-product-bar-after-form',
+                    'description' => __('', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Under the product page (single product)', ''),
+                    'id' => 'single-product-bar-after-page',
+                    'description' => __('', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Over product (single product)', ''),
+                    'id' => 'single-product-bar-before-form',
+                    'description' => __('', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Footer #1', ''),
+                    'id' => 'footer-1',
+                    'description' => __('Sidebar is displayed on footer section', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Footer #2', ''),
+                    'id' => 'footer-2',
+                    'description' => __('Sidebar is displayed on footer section', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Footer #3', ''),
+                    'id' => 'footer-3',
+                    'description' => __('Sidebar is displayed on footer section', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+                register_sidebar(array(
+                    'name' => __('Footer #4', ''),
+                    'id' => 'footer-4',
+                    'description' => __('Sidebar is displayed on footer section', ''),
+                    'before_widget' => '',
+                    'after_widget' => '',
+                    'before_title' => '<h3>',
+                    'after_title' => '</h3>',
+                ));
+
+            });
+
+        }
+
+        navmenus();
+        sidebars();
+
+        switch ($only) {
+            case 'navmenus':
+                navmenus();
+                break;
+
+            case 'sidebars':
+                sidebars();
+                break;
+
+            case 'all':
+                navmenus();
+                sidebars();
+                break;
+
+            default:
+                break;
+
+        }
+
+    }
+
+    function setup_wp_supports($wp_default = true, $woocommerce = true)
+    {
+
+        if ($wp_default) {
+
+            add_theme_support('post-thumbnails');
+            add_theme_support('custom-background');
+            add_theme_support('custom-header');
+            add_theme_support('title-tag');
+            add_theme_support('automatic-feed-links');
+            add_theme_support('wc-product-gallery-zoom');
+            add_theme_support('wc-product-gallery-lightbox');
+            add_theme_support('wc-product-gallery-slider');
+            add_image_size('mirele-thumbnail', 80, 80);
+
+        }
+
+        if ($woocommerce) {
+            add_theme_support('woocommerce', array(
+                'thumbnail_image_width' => 150,
+                'single_image_width' => 300,
+
+                'product_grid' => array(
+                    'default_rows' => get_option('woo_markup_rows', 5),
+                    'min_rows' => 2,
+                    'max_rows' => 8,
+                    'default_columns' => get_option('woo_column', 4),
+                    'min_columns' => 8,
+                    'max_columns' => 12,
+                ),
+            ));
+        }
+
+    }
+
+    function setup_bootstrap()
+    {
+
+        switch (get_option('mirele_bootstrap_main_type_width_main', 'stretched')) {
+
+            case "stretched":
+
+                add_action('mirele_header', function () {
+
+                    if (is_page_template(ROSEMARY_CANVAS)) {
+                        $max_width = "<style>
+                        @media (min-width:1200px) {
+                            .container {
+                                width: 80vw;
+                                max-width: 1870px;
+                            }
+                        }</style>";
+
+                        echo $max_width;
+                    }
+
+                });
+
+                break;
+
+        }
+
+        switch (get_option('mirele_bootstrap_main_type_width_woo', 'stretched')) {
+
+            case "stretched":
+
+                add_action('mirele_header', function () {
+
+                    if (is_woocommerce()) {
+                        $max_width = "<style>
+                        @media (min-width:1200px) {
+                            .container {
+                                width: 80vw;
+                                max-width: 1870px;
+                            }
+                        }</style>";
+
+                        echo $max_width;
+                    }
+
+                });
+
+                break;
+
+        }
+
+    }
+
+    function setup_wp_filters()
+    {
+
+        add_filter('nav_menu_css_class', 'special_nav_class', 10, 2);
+
+        function special_nav_class($classes, $item)
+        {
+            if (in_array('current-post-ancestor', $classes) || in_array('current-page-ancestor', $classes) || in_array('current-menu-item', $classes)) {
+                $classes[] = 'active-flat-navbar ';
+            }
+            return $classes;
+        }
+
+    }
+
+    function setup_wp_settings_fluids()
+    {
+
+        global $msettings;
+
+        $msettings->register('woocommerce', array(
+            'General settings' => array(
+                'woo_hide_page_title' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Hide the page standart title on the WooCommerce page'
+                )
+            ),
+            'Product Card (in the product list)' => array(),
+            'Product card theme that appears in the product list' => array(),
+            'Product Card (product page display)' => array()
+        ));
+
+        $msettings->register('theme_main', array(
+            'Main' => array(
+                'mrl_wp_user_scalable' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'To enable scaling of the site',
+                    'note' => "On a PC with CTRL pressed, you can zoom in on the site. <br>
+                                On a smartphone, the site may increase due to a double tap. <br>
+                                PS: on iPhone 5s, when choosing a product option, the site increases a little, which does
+                                not look very good"
+                ),
+                'mrl_wp_js_disabled_warning' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Show warning about disabled js',
+                    'note' => "If the user has JavaScript disabled, he will receive a warning about the instability of the site with JavaScript turned off. You can choose the style of the item in the \"No JS Box\" submenu which is located below on this page"
+                ),
+                'mrl_wp_cookies_warning' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Show Cookie Warning',
+                    'note' => 'You can choose the style of the item in the "Cookies allow?" submenu which is located below on this page'
+                )
+            )
+        ));
+
+        $msettings->register('theme_placeholder', array(
+            'Style' => array(
+                'mrl_wp_preloader' => array(
+                    'type' => 'mirele_theme_render',
+                    'value' => mirele_get_components_by_type_meta('preloader'),
+                    'option' => 'mrl_wp_preloader'
+                )
+            )
+        ));
+
+        $msettings->register('theme_navbar', array(
+            'Style' => array(
+                'mrl_wp_header' => array(
+                    'type' => 'mirele_theme_render',
+                    'value' => mirele_get_components_by_type_meta('navbar'),
+                    'option' => 'mrl_wp_header'
+                )
+            )
+        ));
+
+        $msettings->register('theme_footer', array(
+            'Style' => array(
+                'mrl_wp_footer' => array(
+                    'type' => 'mirele_theme_render',
+                    'value' => mirele_get_components_by_type_meta('footer'),
+                    'option' => 'mrl_wp_footer'
+                )
+            )
+        ));
+
+        $msettings->register('theme_fonts', array(
+            'Fonts' => array(
+                'mirele_fonts_include' => array(
+                    'value' => function ($fluid = null) {
+
+                    },
+                    'type' => 'function'
+                )
+            )
+        ));
+
+        $msettings->register('theme_cookies_allow', array(
+            'Style' => array(
+                'mrl_wp_cookie_box' => array(
+                    'type' => 'mirele_theme_render',
+                    'value' => mirele_get_components_by_type_meta('cookie_box'),
+                    'option' => 'mrl_wp_cookie_box'
+                )
+            )
+        ));
+
+        $msettings->register('theme_no_js_box', array(
+            'Style' => array(
+                'mrl_wp_no_js_box' => array(
+                    'type' => 'mirele_theme_render',
+                    'value' => mirele_get_components_by_type_meta('no_js_box'),
+                    'option' => 'mrl_wp_no_js_box'
+                )
+            )
+        ));
+
+        $msettings->register('theme', array(
+            'Sidebars Settings Size' => array(
+                'mrl_wp_sidebar_width_1_active' => array(
+                    'type' => 'radio',
+                    'value' => range(1, 12),
+                    'text' => 'Enter the width of the sidebar when 1 sidebar active'
+                ),
+                'mrl_wp_sidebar_width_2_active' => array(
+                    'type' => 'radio',
+                    'value' => range(1, 12),
+                    'text' => 'Enter the width of the sidebar when 2 sidebar active'
+                )
+            ),
+            'Sidebars Settings Options' => array(
+                'mrl_wp_sidebar_hide_mobile' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Hide sidebars on mobile smartphones'
+                ),
+            ),
+            'Type layout (Main)' => array(
+                'mirele_bootstrap_main_type_width_main' => array(
+                    'type' => 'radio',
+                    'value' => [
+                        [
+                            'text' => 'Stretched',
+                            'value' => 'stretched'
+                        ],
+                        [
+                            'text' => 'Standart Bootstrap Size',
+                            'value' => 'standart'
+                        ]
+                    ],
+                    'text' => ''
+                )
+            ),
+            'Type layout (WooCommerce)' => array(
+                'mirele_bootstrap_main_type_width_woo' => array(
+                    'type' => 'radio',
+                    'value' => [
+                        [
+                            'text' => 'Stretched',
+                            'value' => 'stretched'
+                        ],
+                        [
+                            'text' => 'Standart Bootstrap Size',
+                            'value' => 'standart'
+                        ]
+                    ],
+                    'text' => ''
+                )
+            ),
+        ));
+
+        $msettings->register('theme_woo_account', array(
+            'User personal account' => array(
+                'woo_alternative_account' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Use an alternative version of the account page'
+                ),
+                'woo_account_register_ajax_on' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Use AJAX for the registration form',
+                    'note' => 'Please note that this version of Mirele does not support form plugins for AJAX authorization forms. This means that all plugins that apply To woocommerce authorization forms will not work with AJAX enabled'
+                ),
+                'woo_account_login_ajax_on' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Use AJAX for the login form',
+                    'note' => 'Please note that this version of Mirele does not support form plugins for AJAX authorization forms. This means that all plugins that apply To woocommerce authorization forms will not work with AJAX enabled'
+                ),
+                'woo_account_delayed_launch_on' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Use deferred loading',
+                    'note' => 'Sometimes the account page may load with artifacts. To hide loading problems, you can use deferred loading mode. The user will not feel any difference, and the site loading speed will not increase.'
+                ),
+                'woo_account_can_sort_on' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Users сan move blocks in places in their personal account'
+                ),
+                'woo_alternative_account_show_counts' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Show the "count" block (block # 2) on the account page'
+                ),
+                'woo_alternative_account_plugins_on' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'To enable plugin support',
+                    'note' => 'All plugins that add their pages to your personal account will start working. Some plugins may not be well adapted to work with an alternative type of account page'
+                )
+
+            )
+        ));
+
+        $msettings->register('theme_woo_fastcart', array(
+            'Fast Card' => array(
+                'woo_fastcart_enabled' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Enable \'Fast Cart\''
+                ),
+                'woo_fastcart_hide_title' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Hide title in \'Fast Cart\''
+                ),
+                'woo_fastcart_title' => array(
+                    'type' => 'wp-text',
+                    'value' => get_option('woo_fastcart_title', 'Fast cart'),
+                    'text' => 'Title for FastCart'
+                ),
+            )
+        ));
+
+        $msettings->register('theme_woo_quickcart', array(
+            'Quick Card' => array(
+                'woo_quickcart_enabled' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Quick-Cart view from menu item (header)'
+                )
+            )
+        ));
+
+        $msettings->register('theme_woo_products', array(
+            'Products' => array(
+                'woo_column' => array(
+                    'type' => 'radio',
+                    'value' => [
+                        [
+                            'text' => 'Auto (recommend)',
+                            'value' => 'auto'
+                        ],
+                        '6',
+                        '4',
+                        '2'
+                    ],
+                    'text' => 'The number of product columns in the list'
+                ),
+                'woo_markup_rows' => array(
+                    'type' => 'radio',
+                    'value' => [
+                        '1',
+                        '2',
+                        '3',
+                        '4',
+                        '5',
+                        '6',
+                        '7',
+                        '8'
+                    ],
+                    'text' => 'The number of product lines on one page'
+                )
+            )
+        ));
+
+        $msettings->register('theme_woo_product', array(
+            'Product' => array(
+                'woo_enoji_without_comments' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Show "No comments" block when product don`t have comments'
+                ),
+                'woo_show_related_products_in_single_product_page' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Show block \'Related products\' on the product page'
+                ),
+                'woo_comment_show_block_login_as' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Logged in as \'...\' in the comment section of the product'
+                ),
+                'woo_product_modern_picture_offer' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Include \'Modern\' picture'
+                )
+            )
+        ));
+
+        $msettings->register('theme_woo_cart', array(
+            'Cart' => array(
+                'woo_show_coupon_section_on_checkout_page' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Prompt the user to enter a coupon on the checkout page'
+                ),
+                'woo_price_results_in_table' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'To display the total price in the table of cart'
+                ),
+                'woo_cart_show_totals_block' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Show the \'Cart totals\' section on the cart page'
+                ),
+                'woo_move_the_next_button_to_the_panel_below_the_table' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Move the \'Continue\' button to the panel below the cart table in the cart page'
+                ),
+            )
+        ));
+
+        $msettings->register('theme_woo_product_loop', array(
+            'Product' => array(
+                'woo_product_modern_picture' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Include \'Modern\' picture'
+                ),
+                'woo_product_lazy_loader' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Use lazy loader for modern picture'
+                ),
+                'woo_product_card_theme' => array(
+                    'type' => 'mirele_theme_render',
+                    'value' => mirele_get_components_by_type_meta('woo_product_cart_loop'),
+                    'option' => 'woo_product_card_theme',
+                    'text' => 'Style'
+                )
+            )
+        ));
+
+        $msettings->register('analysis', array(
+            'Privacy' => array(
+                'mirele_send_analysis' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Send anonymous usage statistics to Mirele servers only for debugging purposes',
+                    'note' => "We do not disclose, do not sell, do not personalize, do not use your data for spam",
+                    'default' => 'true'
+                )
+            ),
+            'Market Repository' => array(
+                'mirele_allow_install_from_repo' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Allow using the repository system to install components',
+                    'default' => 'false'
+                )
+            ),
+            'System updates' => array(
+                'mirele_allow_check_updates' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'To check updates of a system',
+                    'default' => 'true'
+                ),
+                'mirele_forbid_updates' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'To <b>forbid</b> to update a system',
+                    'default' => 'false'
+                )
+            ),
+            'Backups' => array(
+                'mirele_allow_backups' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Allow create backups',
+                    'default' => 'true'
+                ),
+                'mirele_allow_backups_cron' => array(
+                    'type' => 'checkbox',
+                    'value' => 'true',
+                    'text' => 'Allow backups via CRON task',
+                    'default' => 'true',
+                    'note' => 'The WordPress has a Cron task scheduler. It allows backups to be created even when you are not using the administrative panel WordPress'
+                ),
+                'mirele_frequency_backups_time' => array(
+                    'type' => 'radio',
+                    'value' => [
+                        [
+                            'text' => 'Every day',
+                            'value' => 60 * 60 * 24 * 1
+                        ],
+                        [
+                            'text' => 'Every 2 days',
+                            'value' => 60 * 60 * 24 * 2
+                        ],
+                        [
+                            'text' => 'Every 4 days',
+                            'value' => 60 * 60 * 24 * 4
+                        ],
+                        [
+                            'text' => 'Every 6 days',
+                            'value' => 60 * 60 * 24 * 6
+                        ],
+                        [
+                            'text' => 'Every 15 days',
+                            'value' => 60 * 60 * 24 * 15
+                        ],
+                        [
+                            'text' => 'Every 29 days',
+                            'value' => 60 * 60 * 24 * 29
+                        ],
+                    ],
+                    'text' => 'Backup frequency',
+                    'default' => 60 * 60 * 24 * 4
+                ),
+            ),
+        ));
+
+
+    }
+
+    function setup_wp_dashboard_widgets()
+    {
+
+        add_action('wp_dashboard_setup', function () {
+
+            wp_add_dashboard_widget('mirele_security_dwidget', 'Mirele Security', function () {
+
+                initialize_templates(true);
+
+                global $msafe;
+
+                ?>
+
+                <h1> <?php echo !empty($msafe->info()->virus) ? "You have <b style='color: #e9523d;'>" . count($msafe->info()->virus) . "</b> dangerous file(s)!" : "Your site is safe" ?> </h1>
+
+                <?php if (count($msafe->info()->virus) > 0): ?>
+                    <ol>
+                        <?php foreach ($msafe->info()->virus as $post): ?>
+                            <li>
+                                <b> <?php echo basename($post->file); ?> </b> <?php echo $post->short_description ?>
+                                <hr>
+                                <small>
+                                    <?php echo $post->description ?>
+                                </small>
+                            </li>
+                        <?php endforeach; ?>
+                    </ol>
+                <?php endif; ?>
+
+                <p>The security system did not detect malicious blocks that you could download from a third-party
+                    repository</p>
+                <small> Files that have passed antivirus check - <?php echo count($msafe->info()->normal) ?> </small>
+
+                <?php
+
+            });
+
+            wp_add_dashboard_widget('mirele_twitter_dwidget', 'Mirele News', function () {
+
+                ?>
+
+                <h3 class="mirele-overview__heading"> News </h3>
+
+                <ul class="mirele-overview__posts">
+                    <?php
+
+                    $feed = mc_execute('twtr_feed', function () {
+                        return MFile::read("https://twitrss.me/twitter_user_to_rss/?user=iRTEXFeed");
+                    });
+
+                    $rss = simplexml_load_string($feed);
+
+                    if ($rss): foreach (array_slice($rss->xpath("//item"), 0, 6) as $post): ?>
+
+                        <li>
+                            <a href="<?php echo $post->link ?>" target="_blank" rel="noopener noreferrer"
+                               class="rsswidget"> <?php echo preg_replace('/\.twitter\.com\/(.+)/', '', preg_replace('/(#\w+)/', '', $post->title)) ?> </a>
+                        </li>
+
+                    <?php endforeach; endif; ?>
+                </ul>
+
+                <?php
+
+            });
+
+        });
+
+    }
+
+    function setup_robotstxt($type = false)
+    {
+
+        if (!$type) {
+
+            if (!MFile::exist(get_template_directory() . '/robots.txt')) {
+                MFile::write(get_template_directory() . '/robots.txt', get_option('mirele_robotstxt', ''));
+            } elseif (mb_strlen(get_option('mirele_robotstxt', '')) != MFile::size(get_template_directory() . '/robots.txt')) {
+                MFile::write(get_template_directory() . '/robots.txt', get_option('mirele_robotstxt', ''));
+            }
+
+        } elseif ($type == 'default') {
+
+            $url = home_url();
+            $host = $_SERVER['HTTP_HOST'];
+
+            $robots = "User-agent: *
+                           
+Disallow: /cgi-bin          
+Disallow: /?                
+Disallow: /wp-              
+Disallow: /wp/              
+                            
+Disallow: *?s=              
+Disallow: *&s=              
+Disallow: /search/          
+Disallow: /author/          
+Disallow: /users/           
+Disallow: */trackback       
+                            
+Disallow: */feed            
+Disallow: */rss             
+Disallow: */embed           
+Disallow: */wlwmanifest.xml 
+                            
+Disallow: /xmlrpc.php       
+Disallow: *utm*=             
+Disallow: *openstat=        
+Allow: */uploads            
+
+Sitemap: $url/sitemap.xml
+Sitemap: $url/sitemap.xml.gz
+
+Host: www.$host";
+
+            update_option('mirele_robotstxt', $robots);
+            MFile::write(get_template_directory() . '/robots.txt', get_option('mirele_robotstxt', ''));
+
+        } elseif ($type == 'google') {
+
+            $url = home_url();
+            $host = $_SERVER['HTTP_HOST'];
+
+            $robots = "User-agent: *               
+                            
+Disallow: /cgi-bin          
+Disallow: /?                
+Disallow: /wp-              
+Disallow: /wp/              
+                            
+Disallow: *?s=              
+Disallow: *&s=              
+Disallow: /search/          
+Disallow: /author/          
+Disallow: /users/           
+Disallow: */trackback       
+                            
+Disallow: */feed            
+Disallow: */rss             
+Disallow: */embed           
+Disallow: */wlwmanifest.xml 
+                            
+Disallow: /xmlrpc.php       
+Disallow: *utm*=             
+Disallow: *openstat=        
+Allow: */uploads            
+
+User-agent: GoogleBot       
+Disallow: /cgi-bin
+Disallow: /?
+Disallow: /wp-
+Disallow: /wp/
+Disallow: *?s=
+Disallow: *&s=
+Disallow: /search/
+Disallow: /author/
+Disallow: /users/
+Disallow: */trackback
+Disallow: */feed
+Disallow: */rss
+Disallow: */embed
+Disallow: */wlwmanifest.xml
+Disallow: /xmlrpc.php
+Disallow: *utm*=
+Disallow: *openstat=
+Allow: */uploads
+Allow: /*/*.js              
+Allow: /*/*.css             
+Allow: /wp-*.png            
+Allow: /wp-*.jpg            
+Allow: /wp-*.jpeg           
+Allow: /wp-*.gif            
+Allow: /wp-admin/admin-ajax.php 
+
+Clean-Param: openstat
+
+Sitemap: $url/sitemap.xml
+Sitemap: $url/sitemap.xml.gz
+
+Host: www.$host";
+
+            update_option('mirele_robotstxt', $robots);
+            MFile::write(get_template_directory() . '/robots.txt', get_option('mirele_robotstxt', ''));
+
+        }
+
+    }
+
+    setup_wp_markup();
+    setup_wp_supports();
+    setup_bootstrap();
+    setup_wp_filters();
+    setup_wp_settings_fluids();
+    setup_wp_dashboard_widgets();
+    setup_robotstxt();
+
+}
